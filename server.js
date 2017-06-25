@@ -1,20 +1,21 @@
-// server.js
 
-// modules
-var express        = require('express');  
-var app            = express();
+var express = require('express');
+var port = 9000;
+var app = express();
+app.use(express.static( __dirname + '/public'));
+var logger= require('morgan');
+app.use(logger('dev'));
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: false
+}))
+// require("./models/db");
 
-// set our port
-var port = process.env.PORT || 3000;
+require('./app/routes')(app);
+app.listen(9000, function(){
+	console.log("listening to: " + port )
+});
 
-// set the static files location 
-app.use(express.static(__dirname + '/public'));
+// exports = module.exports = app;
 
-require('./app/routes')(app); // configure our routes
-
-// startup our app at http://localhost:3000
-app.listen(port);
-
-
-// expose app
-exports = module.exports = app;
