@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }))
-// require("./models/db");
+require("./models/db");
 
 require('./app/routes')(app);
 app.listen(9000, function(){
